@@ -1,11 +1,10 @@
+'use strict';
+const assert = require('assert');
+const request = require('supertest');
+const app = require('./index.js');
 
-var assert = require('assert');
-var request = require('supertest');
-
-var app = require('./index.js');
-
-describe('Content Negotiation', function () {
-  it('when "Accept: gzip" it should return gzip', function (done) {
+describe('Content Negotiation', () => {
+  it('when "Accept: gzip" it should return gzip', (done) => {
     request(app.listen())
     .get('/')
     .set('Accept-Encoding', 'gzip')
@@ -14,12 +13,12 @@ describe('Content Negotiation', function () {
     .expect('hello world', done);
   })
 
-  it('when "Accept: identity" it should not compress', function (done) {
+  it('when "Accept: identity" it should not compress', (done) => {
     request(app.listen())
     .get('/')
     .set('Accept-Encoding', 'identity')
     .expect(200)
-    .expect('hello world', function (err, res) {
+    .expect('hello world', (err, res) => {
       if (err) return done(err);
 
       assert.equal(res.headers['content-encoding'] || 'identity', 'identity');

@@ -1,19 +1,21 @@
+'use strict';
+const koa = require('koa');
+const gzip = require('mz/zlib').gzip;
 
-var koa = require('koa');
-
-/**
- * This is a promisified version of zlib's gzip function,
- * allowing you to simply `yield` it without "thunkifying" it.
- *
- *   app.use(function* (next) {
- *     this.response.set('Content-Encoding', 'gzip');
- *     this.response.body = yield gzip('something');
- *   })
- */
-var gzip = require('mz/zlib').gzip;
-
-var app = module.exports = koa();
+const app = module.exports = koa();
 
 app.use(function* () {
+  if(this.request.path !== '/') {
+    return yield next;
+  }
+  let acceptEncoding = this.acceptsEncodings('gzip', 'identity');
+  let body = 'hello world';
 
-})
+  this.response.set('Content-Encoding', acceptEncoding);
+
+  if (acceptEncoding === 'gzip') {
+    this.response.body = yield gzip(body);
+  } else {
+    this.response.body = body;
+  }
+});

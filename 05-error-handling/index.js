@@ -1,4 +1,4 @@
-'use sctrict';
+'use strict';
 
 const koa = require('koa');
 const app = module.exports = koa();
