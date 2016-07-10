@@ -1,20 +1,18 @@
+'use strict';
+const co = require('co');
+const assert = require('assert');
 
-var co = require('co');
-var assert = require('assert');
+const fs = require('./index.js');
 
-var fs = require('./index.js');
-
-describe('.stats()', function () {
+describe('.stats()', () => {
   it('should stat this file', co(function* () {
-    var stats = yield fs.stat(__filename);
+    let stats = yield fs.stat(__filename);
     assert.ok(stats.size);
   }))
 
-  it('should throw on a nonexistent file', co(function* () {
+  it.only('should throw on a nonexistent file', co(function* () {
     try {
       yield fs.stat(__filename + 'lkjaslkdjflaksdfasdf');
-      // the above expression should throw,
-      // so this error will never be thrown
       throw new Error('nope');
     } catch (err) {
       assert(err.message !== 'nope');
@@ -22,7 +20,7 @@ describe('.stats()', function () {
   }))
 })
 
-describe('.exists()', function () {
+describe('.exists()', () => {
   it('should find this file', co(function* () {
     assert.equal(true, yield fs.exists(__filename))
   }))
