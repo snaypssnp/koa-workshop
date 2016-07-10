@@ -1,27 +1,23 @@
+'use strict';
 
-var fs = require('fs');
-var koa = require('koa');
-
-var app = module.exports = koa();
-
-/**
- * Create the `GET /stream` route that streams this file.
- * In node.js, the current file is available as a variable `__filename`.
- */
+const fs = require('fs');
+const koa = require('koa');
+const app = module.exports = koa();
 
 app.use(function* (next) {
-  if (this.request.path !== '/stream') return yield* next;
+  if (this.request.path !== '/stream') {
+    return yield* next;
+  }
 
-  // this.response.type =
-  // this.response.body =
+  this.response.type = "application/javascript";
+  this.response.body = fs.ReadStream(__filename);
 });
 
-/**
- * Create the `GET /json` route that sends `{message:'hello world'}`.
- */
-
 app.use(function* (next) {
-  if (this.request.path !== '/json') return yield* next;
-
-  // this.response.body =
+  if (this.request.path !== '/json') {
+    return yield next;
+  }
+  this.response.body = {
+    message: 'hello world'
+  }
 });
