@@ -1,12 +1,12 @@
+'use strict';
+const assert = require('assert');
+const request = require('supertest');
 
-var assert = require('assert');
-var request = require('supertest');
+const app = require('./index.js');
 
-var app = require('./index.js');
-
-describe('Content Headers', function () {
-  describe('when sending plain text', function () {
-    it('should return "ok"', function (done) {
+describe('Content Headers', () => {
+  describe('when sending plain text', () => {
+    it('should return "ok"', (done) => {
       request(app.listen())
       .get('/')
       .set('Content-Type', 'text/plain')
@@ -17,8 +17,8 @@ describe('Content Headers', function () {
     })
   })
 
-  describe('when sending JSON', function () {
-    it('should return that JSON', function (done) {
+  describe('when sending JSON', () => {
+    it('should return that JSON', (done) => {
       // just a random JSON body. don't bother parsing this.
       var body = JSON.stringify({});
 
@@ -30,7 +30,7 @@ describe('Content Headers', function () {
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect('Content-Length', 17)
-      .end(function (err, res) {
+      .end((err, res) => {
         if (err) return done(err);
 
         assert.equal('hi!', res.body.message);
