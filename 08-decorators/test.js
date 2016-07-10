@@ -1,10 +1,10 @@
+'use strict';
 
-var request = require('supertest');
+const request = require('supertest');
+const app = require('./index.js');
 
-var app = require('./index.js');
-
-describe('Decorators', function () {
-  it('should return the string escaped', function (done) {
+describe('Decorators', () => {
+  it('should return the string escaped', (done) => {
     request(app.listen())
     .get('/')
     .expect(200)
