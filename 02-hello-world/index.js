@@ -1,13 +1,7 @@
-
-var koa = require('koa');
-
-var app = module.exports = koa();
-
-/**
- * Return "hello world" as a string on every request.
- * Hint: this only requires a single line of code.
- */
+'use strict';
+const koa = require('koa');
+const app = module.exports = koa();
 
 app.use(function* () {
-
+  this.response.body = 'hello world';
 });

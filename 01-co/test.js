@@ -10,7 +10,7 @@ describe('.stats()', () => {
     assert.ok(stats.size);
   }))
 
-  it.only('should throw on a nonexistent file', co(function* () {
+  it('should throw on a nonexistent file', co(function* () {
     try {
       yield fs.stat(__filename + 'lkjaslkdjflaksdfasdf');
       throw new Error('nope');

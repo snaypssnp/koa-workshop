@@ -1,10 +1,9 @@
+'use strict';
+const request = require('supertest');
+const app = require('./index.js');
 
-var request = require('supertest');
-
-var app = require('./index.js');
-
-describe('Hello World', function () {
-  it('should return hello world', function (done) {
+describe('Hello World', () => {
+  it('should return hello world', (done) => {
     request(app.listen())
     .get('/')
     .expect(200)
