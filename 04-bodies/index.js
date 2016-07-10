@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs  = require('fs');
 const koa = require('koa');
 const app = module.exports = koa();
 
